@@ -9,7 +9,7 @@
 void quick_sort(std::vector<int>& a) {
     typedef std::pair<std::size_t, std::size_t> Range;
     std::stack<Range> st;
-    st.push(std::make_pair(0, a.size()));
+    st.push(Range(0, a.size()));
     while(!st.empty()) {
         std::size_t start = st.top().first;
         std::size_t end = st.top().second;
@@ -33,10 +33,10 @@ void quick_sort(std::vector<int>& a) {
         assert(i < end);
 
         if (i > start) {
-            st.push(std::make_pair(start, i));
-            st.push(std::make_pair(i, end));
+            st.push(Range(start, i));
+            st.push(Range(i, end));
         } else {
-            st.push(std::make_pair(start + 1, end));
+            st.push(Range(start + 1, end));
         }
     }
 }

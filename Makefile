@@ -10,6 +10,6 @@ $(PROGRAM): $(OBJS)
 	$(CC) $(CXXFLAGS) $(OBJS) -o $(PROGRAM)
 
 clean:
-	rm -f *.o
+	rm -f *.o *.exe
 
 .PHONY: all clean

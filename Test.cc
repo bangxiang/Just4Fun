@@ -16,7 +16,6 @@ static void test_quick_sort_helper(vector<int>& a) {
     }
 }
 static void test_quick_sort() {
-    cout << "// Begin Testing for quick_sort" << endl;
     int array[] = {7, 6, 9, 10, 5, 5, 7, 3 };
     size_t size = sizeof(array)/sizeof(int);
     vector<int> a(array, array + size);
@@ -24,7 +23,7 @@ static void test_quick_sort() {
 
     vector<int> empty;
     test_quick_sort_helper(empty);
-    cout << "//~ End Testing for quick_sort" << endl;
+    cout << "test_quick_sort ... OK" << endl;
 }
 
 int main(int argc, char**argv) {
