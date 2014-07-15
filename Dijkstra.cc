@@ -62,8 +62,8 @@ void Dijkstra::run(const Graph& g, NodeId src_node) {
     size_t size = g.getNodeNum();
     distances = new EdgeVal[size];
     previous = new NodeId[size];
-    typedef std::list<NodeId> Set;
-    Set set;
+    typedef std::list<NodeId> SortedList;
+    SortedList set; // sort according to distances[*it]
     set.push_back(src_node);
     for (size_t i = 0; i != size; ++i) {
         distances[i] = Graph::INVALID_EDGE_VAL;
@@ -76,25 +76,31 @@ void Dijkstra::run(const Graph& g, NodeId src_node) {
     distances[src_node] = 0;
     previous[src_node] = src_node;
     while(!set.empty()) {
+        // extract_min
         NodeId u = *set.begin();
         set.pop_front();
-        std::vector<NodeId> updated;
-        for (Set::iterator it = set.begin(); it != set.end();) {
+
+        // update distances and previous
+        // , and move updated nodes into updated_nodes
+        std::vector<NodeId> updated_nodes;
+        for (SortedList::iterator it = set.begin(); it != set.end();) {
             NodeId i = *it;
             if (!g.hasEdge(u, i)) { ++it; continue; }
             EdgeVal d = distances[u] + g.getEdgeVal(u, i);
             if (distances[i] > d) {
                 distances[i] = d;
                 previous[i] = u;
-                updated.push_back(i);
+                updated_nodes.push_back(i);
                 it = set.erase(it);
             } else {
                 ++it;
             }
         }
-        for (size_t i = 0; i != updated.size(); ++i) {
-            NodeId id = updated[i];
-            Set::iterator it = set.begin();
+
+        // insert updated nodes and back to the set and keep it sorted
+        for (size_t i = 0; i != updated_nodes.size(); ++i) {
+            NodeId id = updated_nodes[i];
+            SortedList::iterator it = set.begin();
             for (; it != set.end(); ++it) {
                 if(distances[id] < distances[*it]) {
                     set.insert(it, id);
