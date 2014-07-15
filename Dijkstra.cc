@@ -97,7 +97,7 @@ void Dijkstra::run(const Graph& g, NodeId src_node) {
             }
         }
 
-        // insert updated nodes and back to the set and keep it sorted
+        // insert updated nodes back to the set and keep it sorted
         for (size_t i = 0; i != updated_nodes.size(); ++i) {
             NodeId id = updated_nodes[i];
             SortedList::iterator it = set.begin();
