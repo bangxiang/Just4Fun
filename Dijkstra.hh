@@ -54,13 +54,15 @@ public:
     Solver();
     ~Solver();
 
+    // main func
     void run(const Graph& g, NodeId src);
 
-    void reset();
-
+    // get result
     EdgeVal getDistance(NodeId n) { return *(distances + n); }
     NodeId  getPrevNode(NodeId n) { return *(previous + n); }
+
 private:
+    void reset();
     EdgeVal *distances;
     NodeId *previous;
 };
