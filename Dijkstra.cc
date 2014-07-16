@@ -59,13 +59,17 @@ void Solver::reset() {
 }
 
 void Solver::run(const Graph& g, NodeId src_node) {
+    typedef std::list<NodeId> SortedList;
+
     reset();
+
     assert(src_node < g->getNodeNum());
-    size_t size = g.getNodeNum();
+    const size_t size = g.getNodeNum();
     distances = new EdgeVal[size];
     previous = new NodeId[size];
-    typedef std::list<NodeId> SortedList;
     SortedList set; // sort according to distances[*it]
+
+    // init
     set.push_back(src_node);
     for (size_t i = 0; i != size; ++i) {
         distances[i] = Graph::INVALID_EDGE_VAL;
@@ -77,6 +81,8 @@ void Solver::run(const Graph& g, NodeId src_node) {
     assert(set.size() == size);
     distances[src_node] = 0;
     previous[src_node] = src_node;
+
+    // run
     while(!set.empty()) {
         // extract_min
         NodeId u = *set.begin();
