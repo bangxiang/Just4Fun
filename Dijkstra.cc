@@ -5,6 +5,8 @@
 
 using std::size_t;
 
+namespace Dijkstra {
+
 Graph::Graph(size_t n) : size(n) {
     const size_t matrix_size = ((n - 1) * n)/2 + 1;
     edges = new EdgeVal[matrix_size];
@@ -44,19 +46,19 @@ void Graph::rmEdge(NodeId n0, NodeId n1) {
     edge(n0, n1) = INVALID_EDGE_VAL;
 }
 
-Dijkstra::Dijkstra() : distances(0), previous(0) {
+Solver::Solver() : distances(0), previous(0) {
 }
 
-Dijkstra::~Dijkstra() {
+Solver::~Solver() {
     reset();
 }
 
-void Dijkstra::reset() {
+void Solver::reset() {
     delete [] distances;
     delete [] previous;
 }
 
-void Dijkstra::run(const Graph& g, NodeId src_node) {
+void Solver::run(const Graph& g, NodeId src_node) {
     reset();
     assert(src_node < g->getNodeNum());
     size_t size = g.getNodeNum();
@@ -113,3 +115,5 @@ void Dijkstra::run(const Graph& g, NodeId src_node) {
         }
     }
 }
+
+} // end of namespace Dijkstra

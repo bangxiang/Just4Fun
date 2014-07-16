@@ -33,7 +33,7 @@ static bool test_quick_sort() {
 }
 
 static bool test_Dijkstra() {
-    Graph g(6);
+    Dijkstra::Graph g(6);
 #define ADD(i, j, v) g.addEdge(i, j, v)
     ADD(0, 1, 7);
     ADD(0, 2, 9);
@@ -45,20 +45,18 @@ static bool test_Dijkstra() {
     ADD(3, 4, 6);
     ADD(5, 4, 9);
 #undef ADD
-    Dijkstra app;
+    Dijkstra::Solver app;
     app.run(g, 0);
     assert(app.distances);
     assert(app.previous);
 
     int expected_distances[]          = {0, 7, 9, 20, 20, 11};
-    Graph::NodeId expected_previous[] = {0, 0, 0, 2,  5,  2};
+    Dijkstra::Graph::NodeId expected_previous[] = {0, 0, 0, 2,  5,  2};
     for (size_t i = 0; i != g.getNodeNum(); ++i) {
-        int distance = *(app.distances + i);
-        Graph::NodeId previous = *(app.previous + i);
-        if (expected_distances[i] != distance) { return false; }
-        if (expected_previous[i]  != previous) { return false; }
+        if (expected_distances[i] != app.getDistance(i)) { return false; }
+        if (expected_previous[i]  != app.getPrevNode(i)) { return false; }
 #ifndef NDEBUG
-        cout << "(id: " << i << ", distance: " << distance << ", prev_node_id: " << previous << ")" << endl;
+        cout << "(id: " << i << ", distance: " << app.getDistance(i) << ", prev_node_id: " << app.getPrevNode(i) << ")" << endl;
 #endif
     }
     return true;

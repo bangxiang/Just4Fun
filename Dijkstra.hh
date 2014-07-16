@@ -4,6 +4,8 @@
 #include <climits>
 #include <vector>
 
+namespace Dijkstra {
+
 class Graph { // un-directional graph
 public:
     typedef std::size_t NodeId;
@@ -44,20 +46,24 @@ private:
     EdgeVal *edges;
 };
 
-class Dijkstra {
+class Solver {
 public:
     typedef Graph::NodeId NodeId;
     typedef Graph::EdgeVal EdgeVal;
 
-    Dijkstra();
-    ~Dijkstra();
+    Solver();
+    ~Solver();
 
     void run(const Graph& g, NodeId src);
 
     void reset();
 
+    EdgeVal getDistance(NodeId n) { return *(distances + n); }
+    NodeId  getPrevNode(NodeId n) { return *(previous + n); }
+private:
     EdgeVal *distances;
     NodeId *previous;
 };
 
+} // end of namespace Dijkstra
 #endif // Dijkstra_hh_include
