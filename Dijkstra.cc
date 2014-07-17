@@ -63,7 +63,7 @@ void Solver::run(const Graph& g, NodeId src_node) {
 
     reset();
 
-    assert(src_node < g->getNodeNum());
+    assert(src_node < g.getNodeNum());
     const size_t size = g.getNodeNum();
     distances = new EdgeVal[size];
     previous = new NodeId[size];

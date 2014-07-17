@@ -11,7 +11,7 @@ static bool test_quick_sort_helper(vector<int>& a) {
     vector<int> cp = a;
     quick_sort(a);
     stable_sort(cp.begin(), cp.end());
-    assert (a.size() != cp.size());
+    assert (a.size() == cp.size());
     for (size_t i = 0; i < a.size(); ++i) {
         if (a[i] != cp[i]) { return false; }
     }
